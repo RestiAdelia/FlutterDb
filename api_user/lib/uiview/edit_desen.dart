@@ -35,7 +35,7 @@ class _PageEditDosenState extends State<PageEditDosen> {
   Future<void> updateDosen() async {
     try {
       final response = await http.put(
-        Uri.parse('http://192.168.1.17:8080/api/dosen/${widget.dosen.no}'),
+        Uri.parse('http://10.126.164.95:8080/api/dosen/${widget.dosen.no}'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           "no": widget.dosen.no,

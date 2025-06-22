@@ -1,9 +1,9 @@
 import 'package:api_user/model/ModelDosen.dart';
 import 'package:api_user/uiview/add_dosen.dart';
 import 'package:api_user/uiview/edit_desen.dart';
+import 'package:api_user/uiview/page_detail_dosen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class PageListDosen extends StatefulWidget {
   const PageListDosen({super.key});
@@ -22,7 +22,7 @@ class _PageListDosenState extends State<PageListDosen> {
   Future<List<ModelDosen>?> getDataDosen() async {
     try {
       final response = await http.get(
-        Uri.parse('http://192.168.1.17:8080/api/dosen'),
+        Uri.parse('http://10.126.164.95:8080/api/dosen'),
       );
 
       if (response.statusCode == 200) {
@@ -47,7 +47,8 @@ class _PageListDosenState extends State<PageListDosen> {
     final result = allDosen.where((dosen) {
       final nameLower = dosen.namaLengkap.toLowerCase();
       final nipLower = dosen.nip.toLowerCase();
-      return nameLower.contains(query.toLowerCase()) || nipLower.contains(query.toLowerCase());
+      return nameLower.contains(query.toLowerCase()) ||
+          nipLower.contains(query.toLowerCase());
     }).toList();
 
     setState(() => filteredDosen = result);
@@ -56,7 +57,7 @@ class _PageListDosenState extends State<PageListDosen> {
   Future<void> deleteDosen(int no) async {
     try {
       final response = await http.delete(
-        Uri.parse('http://192.168.1.17:8080/api/dosen/$no'),
+        Uri.parse('http://10.126.164.95:8080/api/dosen/$no'),
       );
 
       if (response.statusCode == 200) {
@@ -109,7 +110,6 @@ class _PageListDosenState extends State<PageListDosen> {
         backgroundColor: Colors.green,
         title: const Row(
           children: [
-
             Icon(Icons.school, color: Colors.white),
             SizedBox(width: 8),
             Text("Data Dosen"),
@@ -169,7 +169,8 @@ class _PageListDosenState extends State<PageListDosen> {
                             backgroundColor: Colors.blue.shade100,
                             child: const Icon(Icons.person, color: Colors.blue),
                           ),
-                          title: Text(dosen.namaLengkap, style: const TextStyle(fontWeight: FontWeight.bold)),
+                          title: Text(dosen.namaLengkap,
+                              style: const TextStyle(fontWeight: FontWeight.bold)),
                           subtitle: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -199,6 +200,14 @@ class _PageListDosenState extends State<PageListDosen> {
                               ),
                             ],
                           ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => PageDetailDosen(dosen: dosen),
+                              ),
+                            );
+                          },
                         ),
                       );
                     },

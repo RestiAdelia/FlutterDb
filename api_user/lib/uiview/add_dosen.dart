@@ -22,7 +22,7 @@ class _PageAddDosenState extends State<PageAddDosen> {
   Future<void> simpanDosen() async {
     try {
       final response = await http.post(
-        Uri.parse('http://192.168.1.17:8080/api/dosen'),
+        Uri.parse('http://http://10.126.164.95:8080/api/dosen'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           "nip": nip.text,
